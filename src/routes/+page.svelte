@@ -41,8 +41,7 @@
 			title: 'Pipes',
 			description: 'Connect the pipes to flow',
 			href: '/pipes',
-			icon: '🔧',
-			disabled: true
+			icon: '🔧'
 		}
 	];
 </script>

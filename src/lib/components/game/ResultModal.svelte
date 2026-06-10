@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Dialog, {
+	import {
+		Dialog,
 		DialogContent,
 		DialogHeader,
 		DialogTitle,
