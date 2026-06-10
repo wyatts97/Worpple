@@ -1,5 +1,5 @@
 import { Lucia } from 'lucia';
-import { betterSqlite3 } from '@lucia-auth/adapter-sqlite';
+import { BetterSqlite3Adapter } from '@lucia-auth/adapter-sqlite';
 import Database from 'better-sqlite3';
 import { building } from '$app/environment';
 
@@ -14,7 +14,7 @@ export function getAuth() {
 		const sqlite = new Database(process.env.DATABASE_URL ?? 'worpple.db');
 		sqlite.pragma('journal_mode = WAL');
 
-		const adapter = betterSqlite3(sqlite, {
+		const adapter = new BetterSqlite3Adapter(sqlite, {
 			user: 'users',
 			session: 'sessions'
 		});
