@@ -8,7 +8,7 @@ services:
       - "5173:5173"
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=file:./worpple.db
+      - DATABASE_URL=./worpple.db
     volumes:
       - .:/app
       - /app/node_modules
@@ -24,7 +24,7 @@ services:
       - "3001:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=file:/data/worpple.db
+      - DATABASE_URL=/data/worpple.db
     volumes:
       - worpple_data:/data
     restart: unless-stopped
