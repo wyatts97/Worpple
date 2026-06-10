@@ -1,42 +1,93 @@
-# sv
+# Worpple
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A daily puzzle game collection — NYT-inspired, built with Svelte 5.
 
-## Creating a project
+Puzzles reset daily. Currently in active development with Pipes (live) and more games on the way.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Games
+
+| Game | Status |
+|---|---|
+| **Pipes** | ✅ Live — Connect the pipes by rotating hexagonal tiles. Daily puzzle + practice mode. |
+| Wordle | 🔧 Planned |
+| Connections | 🔧 Planned |
+| Spelling Bee | 🔧 Planned |
+| Mini Crossword | 🔧 Planned |
+| Strands | 🔧 Planned |
+
+## Tech Stack
+
+| Layer | Choice |
+|---|---|
+| Framework | [Svelte 5](https://svelte.dev) with runes (`$state`, `$derived`, `$effect`) |
+| Language | TypeScript (strict) |
+| Styling | [Tailwind v4](https://tailwindcss.com) + custom NYT-inspired design tokens |
+| UI Kit | [shadcn-svelte](https://shadcn-svelte.com) (bits-ui, melt-ui) |
+| Database | SQLite via [Drizzle ORM](https://orm.drizzle.team) |
+| Auth | Lucia (v3, deprecated — may migrate to better-auth) |
+| PWA | `@vite-pwa/sveltekit` (service worker + manifest) |
+| Docker | Multi-stage build (dev + production) |
+
+## Quickstart
 
 ```sh
-# create a new project
-npx sv create my-app
-```
+# Clone the repo
+git clone https://github.com/wyatts97/Worpple.git
+cd Worpple
 
-To recreate this project with the same configuration:
+# Install dependencies
+npm install
 
-```sh
-# recreate this project
-npx sv@0.16.1 create --template minimal --types ts --no-install .
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+# Start dev server (http://localhost:5173)
 npm run dev
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-## Building
-
-To create a production version of your app:
+### Docker (alternative)
 
 ```sh
-npm run build
+docker compose up --build
 ```
 
-You can preview the production build with `npm run preview`.
+The dev server will be available at `http://localhost:5173`.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Project Structure
+
+```
+src/
+├── lib/
+│   ├── components/        # Shared UI components
+│   │   ├── game/          # Game-specific (Tile, Keyboard, ResultModal, GameCard)
+│   │   ├── layout/        # AppShell, Header
+│   │   └── ui/            # shadcn components (dialog, button, etc.)
+│   ├── games/
+│   │   └── pipes/         # Pipes game (types, hexgrid, game logic, puzzles, Svelte components)
+│   ├── stores/            # Rune-based stores (IDB wrapper, preferences, streaks, gameState)
+│   ├── server/            # Server-side DB & auth
+│   └── index.ts
+├── routes/
+│   ├── +layout.svelte     # App shell wrapper
+│   ├── +page.svelte       # Game hub / home page
+│   └── pipes/             # Pipes game route
+├── app.css                # Global styles & design tokens
+└── app.html               # HTML shell
+```
+
+## Design
+
+NYT-inspired color palette defined in `src/app.css` via Tailwind `@theme`:
+
+- **Base**: Clean white/gray surfaces with subtle borders
+- **Game states**: Green (correct), yellow (present), gray (absent)
+- **Pipes**: Component colors cycle through 8 distinct pastels
+- **Dark mode**: Supported via Tailwind `dark:` variant
+- **Typography**: Libre Baskerville (headings), IBM Plex Sans (body)
+
+## License
+
+MIT
