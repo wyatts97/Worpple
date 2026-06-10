@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json package-lock.json* .npmrc ./
 
 # Install all dependencies (including devDependencies)
-RUN npm ci
+RUN npm install
 
 # Copy source
 COPY . .
