@@ -4,6 +4,9 @@ import { SvelteKitPWA } from '@vite-pwa/sveltekit';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+	ssr: {
+		external: ['better-sqlite3']
+	},
 	plugins: [
 		tailwindcss(),
 		sveltekit(),
