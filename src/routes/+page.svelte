@@ -6,8 +6,7 @@
 			title: 'Wordle',
 			description: 'Guess the 5-letter word in 6 tries',
 			href: '/wordle',
-			icon: '🟩',
-			disabled: true
+			icon: '🟩'
 		},
 		{
 			title: 'Connections',

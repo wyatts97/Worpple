@@ -35,3 +35,8 @@ vite.config.ts.timestamp-*
 /.vscode
 Plan.md
 AGENT.md
+
+# Cloned reference repos
+/hexapipes-orig
+/tmp-svelte-wordle
+/tmp-wordle-mikhad
