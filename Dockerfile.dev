@@ -1,0 +1,17 @@
+FROM node:22-alpine
+
+# Build dependencies (needed for better-sqlite3 native addon)
+RUN apk add --no-cache python3 make g++
+
+WORKDIR /app
+
+# Copy package files first for better caching
+COPY package.json package-lock.json* .npmrc ./
+
+# Install all dependencies
+RUN npm ci
+
+# Generate SvelteKit types
+RUN npm run prepare
+
+# The rest (source code) is mounted as a volume at runtime

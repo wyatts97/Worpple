@@ -1,0 +1,49 @@
+services:
+  # Development - hot reload with source mounts
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=file:./worpple.db
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.svelte-kit
+    command: npm run dev -- --host 0.0.0.0 --port 5173
+
+  # Production - built app
+  web:
+    build:
+      context: .
+      target: production
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:/data/worpple.db
+    volumes:
+      - worpple_data:/data
+    restart: unless-stopped
+
+  # PostgreSQL variant - swap DATABASE_URL when ready
+  # db:
+  #   image: postgres:16-alpine
+  #   environment:
+  #     POSTGRES_DB: worpple
+  #     POSTGRES_USER: worpple
+  #     POSTGRES_PASSWORD: worpple
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U worpple"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 5
+
+volumes:
+  worpple_data:
+  # pgdata:
